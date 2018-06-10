@@ -312,7 +312,7 @@ const int16_t basic_data<T>::POW10_EXPONENTS[] = {
     827,   853,   880,   907,   933,   960,   986,  1013,  1039,  1066
 };
 
-FMT_FUNC fp operator*(fp x, fp y) {
+FMT_API FMT_FUNC fp operator*(fp x, fp y) {
   // Multiply 32-bit parts of significands.
   uint64_t mask = (1ULL << 32) - 1;
   uint64_t a = x.f >> 32, b = x.f & mask;
@@ -323,7 +323,7 @@ FMT_FUNC fp operator*(fp x, fp y) {
   return fp(ac + (ad >> 32) + (bc >> 32) + (mid >> 32), x.e + y.e + 64);
 }
 
-FMT_FUNC fp get_cached_power(int min_exponent, int &pow10_exponent) {
+FMT_API FMT_FUNC fp get_cached_power(int min_exponent, int &pow10_exponent) {
   const double one_over_log2_10 = 0.30102999566398114;  // 1 / log2(10)
   int index = static_cast<int>(std::ceil(
         (min_exponent + fp::significand_size - 1) * one_over_log2_10));
